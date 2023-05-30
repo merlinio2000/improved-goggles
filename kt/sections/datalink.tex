@@ -1,0 +1,139 @@
+\section{Data Link Layer}
+
+Aufgaben:
+\begin{itemize}
+	\item fehlerfreie Verbindung direkt verbundener Systeme
+	\item Framing, Nutzdaten erkennen und ent-/verpacken
+	\item Fluss-Steuerung (Flow Control), langsamer Empfänger kannen schnellen
+	      Sender bremsen
+	\item Adressierung der Teilnehmer (falls mehrere)
+	\item Medium Zugriff (Media Access) wer darf wann senden
+\end{itemize}
+
+\subsection{Framing}
+
+\subsubsection{Asynchron}
+\begin{itemize}
+	\item keine Daten $\rightarrow$ nichts wird übertragen (Ruhezustand)
+	\item Start-Bit zu Beginn eines Frames
+	\item Aufbau (meistens): Header + Datenblock + Fehlererkennung
+\end{itemize}
+
+
+\subsubsection{Synchron}
+\begin{itemize}
+	\item Frames werden permanent gesendet, falls keine daten wird ein Flag gesendet
+	      (Bit Stuffing stellt sicher dass das Flag nicht als Nutzdaten vorkommt)
+	\item Aufbau: wie Asynchron aber links \& rechts durch Start-/End-Flag begrenzt
+\end{itemize}
+
+
+\subsubsection{Bit-/Framefehlerwarscheinlichkeit}
+\small{auch \textbf{BER} (Bit Error Ratio), NICHT Bitfehlerrate das wären Bitfehler pro Zeit}
+
+Für gleichverteilte Fehler, ohne doppelte die sich aufheben; Wahrscheinlichkeit, dass ein Frame mit
+länge $N \ge 1$ Bitfehler hat
+
+$$FER = P_{Fehler Frame} = 1 - (1 - p_{Fehler Bit})^N $$
+$$ \text{für } p_{Fehler Bit} \ll 1 \text{ gilt näherungsweise }
+	FER \approx N * p_{Fehler Bit}$$
+
+Andere:
+\begin{description}
+	\item[FER] Frame Error Ratio, fehlerhaft empfangene Frames
+	\item[RER] Residual Error Ratio, unentdeckete fehlerhaft empfange Frames
+\end{description}
+
+\subsubsection{Frame-Länge}
+Trade-Offs von Frame länge
+\begin{itemize}
+	\item[+] hohe Netto-Bitrate wegen Gutem Header/Nutzdaten Verhältnis
+	\item[-] grössere Framefehlerwarscheinlichkeit
+	\item[-] mehr Datenverlust bei einem Fehler
+	\item[-] höhere Wahrscheinlichkeit für unentdeckten Fehler
+\end{itemize}
+
+\subsection{Fehlererkennung}
+
+\subsubsection{Hamming-Distanz}
+die minimale Anzahl Bits in denen sich zwei beliebige Codewörter eines
+Codes unterscheiden
+
+\textcolor{orange}{Hamming-Distanz h herlaubt die Erkennung von h-1 Fehlern}
+
+\subsubsection{Parity}
+\begin{description}
+	\item[Even] Anzahl 1 inkl. Parity-Bit ist gerade
+	\item[Odd] Anzahl 1 inkl. Parity-Bit ist ungerade
+		% TODO folie 25,26 was sind resultate der Fragen?
+	\item[Längs \& Quer] über mehrere Bytes für jede Spalte / Zeile Parity
+		sowie eine gesamt parity
+\end{description}
+
+\subsubsection{Prüfsumme}
+
+Hamming-Distanz = 2, z.B. CRC
+
+
+\subsection{Fehlerkorrektur}
+
+\subsubsection{Backward Error Correction}
+Rückfrage des Empfängers nach dem letzen Packet bei Fehler
+\begin{itemize}
+	\item[-] Rückkanal benötigt
+	\item[-] Warten auf Quittung
+	\item[-] Warten auf Timeout (abhilfe durch negative Bestätigung)
+\end{itemize}
+
+\subsubsection{Forward Error Correction (FEC)}
+BER reduzieren durch fehlerkorrigierende Codes
+
+Anstatt verwerfen bei Fehler, schätzen der wahrscheinlichsten gesendeten Nachricht.
+
+Regeln für Hamming-Distanz h
+\begin{itemize}
+	\item Anzahl der korrigierbaren Bitfehler $k$ ist die abgerundete Hälfte
+	      der fehlerbehafteten Zwischencodes $k \le (h-1)/2$
+	\item Ein Code der genau in der Mitte liegt wird als Fehlerhaft erkennt,
+	      kann aber nicht korrigiert werden.
+	\item Allgemein: $k + e = (h-1)$ mit $k \le (h-1)/2$
+\end{itemize}
+
+
+\subsection{Medienzugriff}
+\begin{description}
+	\item[Master-Slave] \,
+        \begin{itemize}
+            \item[+] keine Konflikte weil master alles koordiniert
+            \item[-] single point of failure
+		\end{itemize}
+	\item[Token] Sendeberechtigung wird in einer fixen Reihenfolge weitergereicht
+        \begin{itemize}
+            \item[+] deterministisch
+            \item[-] Aufwändig
+		\end{itemize}
+	\item[Zeitsteuerung] Analog zu Taktfahrplan für Züge
+        \begin{itemize}
+            \item[+] Optimierung möglich
+            \item[-] konflikte bei unplanbarem Verkehr
+		\end{itemize}
+	\item[CSMA] (Carrier Sense Multiple Access) Alle ''master'', senden wenn sie niemand
+        sonst hören
+        \begin{itemize}
+            \item[-] Konflikte möglich falls 2+ gleichzeitig entscheiden zu senden
+		\end{itemize}
+	\item[CSMA/CD] Collision Detection, abbrechen und später nochmals versuchen
+    \item[CSMA/CR] Collision Resolution, Hardware unterstütze Arbitrierung
+\end{description}
+
+\subsection{Flowcontrol}
+
+Erlaubt Empfänger den Sender temporär zu stoppen
+Verwendung bei Speichermangel/langsamer Verarbeitung oder Überlast im Netzwerk
+
+Kann auch implizit vorkommen, in dem der Sender nach jeder Nachricht auf eine
+Quittung wartet bevor er die nächste schickt
+
+
+
+
