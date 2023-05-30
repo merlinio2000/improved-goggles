@@ -103,27 +103,27 @@ Regeln für Hamming-Distanz h
 \subsection{Medienzugriff}
 \begin{description}
 	\item[Master-Slave] \,
-        \begin{itemize}
-            \item[+] keine Konflikte weil master alles koordiniert
-            \item[-] single point of failure
+		\begin{itemize}
+			\item[+] keine Konflikte weil master alles koordiniert
+			\item[-] single point of failure
 		\end{itemize}
 	\item[Token] Sendeberechtigung wird in einer fixen Reihenfolge weitergereicht
-        \begin{itemize}
-            \item[+] deterministisch
-            \item[-] Aufwändig
+		\begin{itemize}
+			\item[+] deterministisch
+			\item[-] Aufwändig
 		\end{itemize}
 	\item[Zeitsteuerung] Analog zu Taktfahrplan für Züge
-        \begin{itemize}
-            \item[+] Optimierung möglich
-            \item[-] konflikte bei unplanbarem Verkehr
+		\begin{itemize}
+			\item[+] Optimierung möglich
+			\item[-] konflikte bei unplanbarem Verkehr
 		\end{itemize}
 	\item[CSMA] (Carrier Sense Multiple Access) Alle ''master'', senden wenn sie niemand
-        sonst hören
-        \begin{itemize}
-            \item[-] Konflikte möglich falls 2+ gleichzeitig entscheiden zu senden
+		sonst hören
+		\begin{itemize}
+			\item[-] Konflikte möglich falls 2+ gleichzeitig entscheiden zu senden
 		\end{itemize}
 	\item[CSMA/CD] Collision Detection, abbrechen und später nochmals versuchen
-    \item[CSMA/CR] Collision Resolution, Hardware unterstütze Arbitrierung
+	\item[CSMA/CR] Collision Resolution, Hardware unterstütze Arbitrierung
 \end{description}
 
 \subsection{Flowcontrol}
@@ -133,6 +133,10 @@ Verwendung bei Speichermangel/langsamer Verarbeitung oder Überlast im Netzwerk
 
 Kann auch implizit vorkommen, in dem der Sender nach jeder Nachricht auf eine
 Quittung wartet bevor er die nächste schickt
+
+
+
+
 
 
 
