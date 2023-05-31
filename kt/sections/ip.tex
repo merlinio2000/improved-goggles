@@ -84,11 +84,76 @@ Adresse eines Host = Netz-Adresse + Interface-Adresse
 \subsubsection{Private Adressen}
 
 Die $172.0.0.0/8$ Adressen sind reserviert für Loopback und verlassen den Host nicht.
-Sie werden an ein emuliertes Loopback-Gerät geschickt dass direkt returned 
+Sie werden an ein emuliertes Loopback-Gerät geschickt dass direkt returned
 (kein Interface nötig).
 \begin{center}
 	\includegraphics[width=0.9\linewidth, height=10mm]{private-ip}
 \end{center}
+
+
+
+\subsection{IPv4 Header}
+
+\textcolor{red}{immer minimum 4Byte Blöcke}
+
+\begin{center}
+	\includegraphics[width=0.9\linewidth]{ip4-header}
+\end{center}
+
+\begin{description}
+	\item[Version] 4 oder 6
+	\item[IHL] Internet Header Length ( / 4 weil immer 4 Byte Blöcke)
+		\begin{itemize}
+			\item Header ohne optionen = 20 Bytes $\rightarrow$ IHL = 5
+			\item Maximalwert 15 (4 Bits)
+		\end{itemize}
+	\item[TOS] Type of Service, erlaubt prioriesierung
+		\begin{center}
+			\includegraphics[width=0.9\linewidth, height=10mm]{ip4-tos}
+		\end{center}
+	\item[Total Length] inclusive Header \& Nutzdaten
+	\item[TTL] Time To Live, In Anzahl Hops. Verhindern Loops, jeder Router
+		dekrementiert, bei 0 $\rightarrow$ Paket verwerfen
+	\item[Protocol] Protokoll der Nutzdaten
+		\begin{enumerate}
+			\item[1] ICMP Internet Control Message Protocol
+			\item[6] TCP Transport Control Protocol
+			\item[17] UDP User Datagramm Protocol
+		\end{enumerate}
+	\item[Header Checksum] schütz NUR den Header, bei jedem Router neu berechnet(TTL)
+	\item[Options/Padding] variabel, heute selten, Padding für 32 bits
+	\item[Identification Number] identifikation, bleibt für fragmentierte Pakete gleich
+	\item[Flags] 3 Bits, steuert Fragmentierung über einzelne Bits
+		(Aufzählung von links aus)
+		\begin{enumerate}[start=0]
+			\item reserviert, immer 0
+			\item DF, 0/1 $\rightarrow$ May / Dont Fragment
+			\item MF, 0/1 $\rightarrow$ Last / More Fragments
+		\end{enumerate}
+	\item[Fragment Offset] 13 Bits, steht für Anzahl 8 Byte Blöcke, bestimmt
+		wo im gesamt paket die Daten hingehören
+\end{description}
+
+
+\subsubsection{Fragmentierung}
+
+IP-Paket maximal 65535 Bytes, aber limitiert durch MTU des Netz. \\
+Problem: spätere Netze haben eventuell tiefere MTU $\rightarrow$ Fragmentierung.
+
+\begin{itemize}
+	\item jedes Fragment erhält seinen eigenen Header
+	\item Identification Number bleibt gleich
+	\item Total Length jeweils die Länge des Paket
+	\item alle Pakete ausser letztes haben MF = 1 in den Flags
+    \item alle Pakete haben die gleiche maximale Länge (ausser letzes)
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.9\linewidth, height=10mm]{ip4-fragment-ex}
+\end{center}
+
+
+
+
 
 
 
