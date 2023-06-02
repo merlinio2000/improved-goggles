@@ -37,7 +37,7 @@ Wird nicht mehr gemacht weil oftmals Adressraum verschwendet wird.
     \item funktioniert simplifiziert durch beliebiges erweitern der Netzadresse
     \item hintereinanderliegende Netze können zusammengefügt werden
           \begin{center}
-              \includegraphics[width=0.8\linewidth, height=10mm]{subnetting-aggr}
+              \includegraphics[width=0.8\linewidth, height=12mm]{subnetting-aggr}
           \end{center}
           % \begin{itemize}
           %  \item 160.85.100.0/24
@@ -165,11 +165,11 @@ Problem: spätere Netze haben eventuell tiefere MTU $\rightarrow$ Fragmentierung
           \end{enumerate}
 \end{itemize}
 
-\includegraphics[width=0.9\linewidth, height=23mm]{ip-reassembly-case-first}
+\includegraphics[width=0.9\linewidth, height=29mm]{ip-reassembly-case-first}
 
-\includegraphics[width=0.9\linewidth, height=23mm]{ip-reassembly-case-last}
+\includegraphics[width=0.9\linewidth, height=29mm]{ip-reassembly-case-last}
 
-\includegraphics[width=0.7\linewidth, height=21mm]{ip-reassembly-case-between}
+\includegraphics[width=0.7\linewidth, height=27mm]{ip-reassembly-case-between}
 
 
 
@@ -181,11 +181,11 @@ Problem: spätere Netze haben eventuell tiefere MTU $\rightarrow$ Fragmentierung
     \item Type im Ethernet-Frame = 0x0800
 \end{itemize}
 
-\includegraphics[width=0.9\linewidth, height=15mm]{ip4-802-3-encap}
+\includegraphics[width=0.9\linewidth, height=17mm]{ip4-802-3-encap}
 
 \subsubsection{Übertragung mit Encapsulation}
 
-\includegraphics[width=0.9\linewidth, height=27mm]{ip4-encap-transmission}
+\includegraphics[width=0.9\linewidth, height=29mm]{ip4-encap-transmission}
 
 
 
@@ -211,7 +211,7 @@ Problem: spätere Netze haben eventuell tiefere MTU $\rightarrow$ Fragmentierung
           \end{itemize}
 \end{itemize}
 
-\includegraphics[width=0.9\linewidth, height=27mm]{arp-struct}
+\includegraphics[width=0.9\linewidth]{arp-struct}
 
 
 
@@ -244,14 +244,14 @@ Problem: spätere Netze haben eventuell tiefere MTU $\rightarrow$ Fragmentierung
 \subsubsection{ICMP Echo / Reply}
 
 \begin{center}
-    \includegraphics[width=0.9\linewidth, height=23mm]{icmp-echo-reply}
+    \includegraphics[width=0.9\linewidth, height=31mm]{icmp-echo-reply}
 \end{center}
 
 
 \subsubsection{ICMP Destination Unreachable}
 
 \begin{center}
-    \includegraphics[width=0.9\linewidth, height=23mm]{icmp-dest-unreach}
+    \includegraphics[width=0.9\linewidth, height=33mm]{icmp-dest-unreach}
 \end{center}
 
 \subsubsection{ICMP Time Exceeded}
@@ -263,5 +263,5 @@ herausgefunden werden.
 Linux command beispiel: \lstinline[language=sh]{traceroute -n -q1 <ip-addr>}
 
 \begin{center}
-    \includegraphics[width=0.9\linewidth, height=23mm]{icmp-time-exceeded}
+    \includegraphics[width=0.9\linewidth, height=31mm]{icmp-time-exceeded}
 \end{center}
